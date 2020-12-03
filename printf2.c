@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 13:21:40 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/03 15:37:17 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/03 16:20:10 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int check_width(char *format, t_struct *my_struct, va_list args)
 
 	pos = 0;
 	i = 0;
-	printf("check width... string start of checking width : %s", &format[pos]); //REPERE
+	//printf("check width... string start of checking width : %s", &format[pos]); //REPERE
 	while(format[pos] == '0' || format[pos] == '%' || format[pos] == '-')
 		pos++;
 	if (format[pos] == '*')
@@ -82,7 +82,7 @@ int check_width(char *format, t_struct *my_struct, va_list args)
 	return (i);
 }
 
-/*
+// [WIP] NON FONCTIONNEL -> BESOIN D'UTILISER VAR pos comme pour le check_width
 int check_precision(char *format, t_struct *my_struct, va_list args)
 {
 	int i;
@@ -103,47 +103,45 @@ int check_precision(char *format, t_struct *my_struct, va_list args)
 	printf("check precision... leftover : %s", &format[i]); //REPERE
 	return (i);
 }
-*/
 
 int	check_options(t_struct *my_struct, va_list args, char const *format)
 {
 	int i;
 
 	i = 0;
-	i += check_flags((char *)format, my_struct);				// -0
+	i += check_flags((char *)format, my_struct);			// -0
 	i += check_width((char *)format, my_struct, args);		// *0-9
-	//i += check_precision((char *)format, my_struct, args);	// .*0-9
+	i += check_precision((char *)format, my_struct, args);	// .*0-9
 	printf("Check struct data :\nzero_padding: %d\nwidth: %d\nprecision: %d\nminus_align: %d\n\n", my_struct->zero_padding, my_struct->width, my_struct->precision, my_struct->minus_align);
 	return(i);
 }
-/*
-   int	select_conversion(char c, va_list args, t_struct *my_struct)
-   {
-   int count;
 
-   count = 0;
+int	select_conversion(char c, va_list args, t_struct *my_struct)
+{
+	int count;
 
-   if (c == 'c')
-   count += c_convert(args, my_struct);
-   else if (c == 's')
-   count += s_convert(args, my_struct);
-   else if (c == 'p')
-   count += p_convert(args, my_struct);
-   else if (c == 'd')
-   count += d_convert(args, my_struct);
-   else if (c == 'i')
-   count += i_convert(args, my_struct);
-   else if (c == 'u')
-   count += u_convert(args, my_struct);
-   else if (c == 'x')
-   count += x_convert(args, my_struct);
-   else if (c == 'X')
-   count += X_convert(args, my_struct);
-   else if (c == '%')
-   count += percent_convert(args, my_struct);
-   return (count);
-   }
-   */
+	count = 0;
+
+	if (c == 'c')
+		count += c_convert(args, my_struct);
+	else if (c == 's')
+		count += s_convert(args, my_struct);
+	else if (c == 'p')
+		count += p_convert(args, my_struct);
+	else if (c == 'd')
+		count += d_convert(args, my_struct);
+	else if (c == 'i')
+		count += i_convert(args, my_struct);
+	else if (c == 'u')
+		count += u_convert(args, my_struct);
+	else if (c == 'x')
+		count += x_convert(args, my_struct);
+	else if (c == 'X')
+		count += X_convert(args, my_struct);
+	else if (c == '%')
+		count += percent_convert(args, my_struct);
+	return (count);
+}
 
 int		str_parsing(const char *format, t_struct *my_struct, va_list args)
 {
@@ -159,7 +157,13 @@ int		str_parsing(const char *format, t_struct *my_struct, va_list args)
 		}
 		else
 		{
+			//Permet de bien déplacer mon index juste après la fin d'un arg et
+			//recuperer les options
 			i += check_options(my_struct, args, &format[i]);
+			printf("String after checking options : %s\n", &format[i]);
+			//Maintenant convertir avec les params l'arg en question
+			my_struct->count_char += select_conversion(format[i], args, my_struct);
+			//
 		}
 		i++;
 	}
@@ -188,7 +192,7 @@ int		ft_printf(const char *format, ...)
 
 int main(void)
 {
-	printf("My string : bonjour %%014d\n\n");
-	ft_printf("bonjour %014d\n", 42);
+	printf("My string : bonjour %%014d, ça va ?\n\n");
+	ft_printf("bonjour %014d, ça va?\n", 42);
 	return (0);
 }
