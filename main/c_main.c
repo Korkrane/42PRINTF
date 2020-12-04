@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:41:58 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/03 19:05:48 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/03 19:14:59 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int main(void)
 	//ft_printf("%c", 'x');
 	//printf("%c", 'x');
 	
-	ft_printf("bonjour %c, ça va ?\n", 'x'); //+1 car unicode ç
-	printf("bonjour %c, ça va ?\n", 'x'); //+1 car unicode ç
+	//ft_printf("bonjour %c, ça va ?\n", 'x'); //+1 car unicode ç
+	//printf("bonjour %c, ça va ?\n", 'x'); //+1 car unicode ç
 	
 	//ft_printf("bonjour %-40c, ca va  %-*c ?\n", 'x', 'a', 5);
 	//printf("bonjour %-40c, ca va  %-*c ?\n", 'x', 'a', 5);
