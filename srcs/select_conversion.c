@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:36:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/03 19:02:07 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/04 14:26:22 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ int	select_conversion(char c, va_list args, t_struct *my_struct)
 	int count;
 
 	count = 0;
-
 	if (c == 'c')
 		count += c_convert(args, my_struct, count);
-	/*
 	else if (c == 's')
-		count += s_convert(args, my_struct);
+		count += s_convert(args, my_struct, count);
+	/*
 	else if (c == 'p')
 		count += p_convert(args, my_struct);
 	else if (c == 'd')
@@ -35,9 +34,9 @@ int	select_conversion(char c, va_list args, t_struct *my_struct)
 		count += x_convert(args, my_struct);
 	else if (c == 'X')
 		count += X_convert(args, my_struct);
-	else if (c == '%')
-		count += percent_convert(args, my_struct);
 	*/
+	else if (c == '%')
+		count += percent_convert(args, my_struct, count);
 	return (count);
 }
 
