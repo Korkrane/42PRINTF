@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/03 18:38:14 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/04 00:59:56 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int check_width(char *format, t_struct *my_struct, va_list args)
 	if (format[pos] == '*')
 	{
 		my_struct->width = va_arg(args, int);
-		return (i + 1);
+		return (i + 1); //pour passer *
 	}
 	if (ft_strchr("0123456789", format[pos]))
 		my_struct->width = atoi(&format[pos]);
@@ -59,19 +59,29 @@ static int check_width(char *format, t_struct *my_struct, va_list args)
 static int check_precision(char *format, t_struct *my_struct, va_list args)
 {
 	int i;
+	int pos;
 
 	i = 0;
-	if (format[i] == '.')
+	pos = 0;
+	//printf("check precision... string start of checking precision : %s", &format[pos]); //REPERE
+	while((format[pos] >= '0' && format[pos] <= '9') || format[pos] == '%' || format[pos] == '-')
+		pos++;
+	//printf("check precision... string start of checking precision : %s", &format[pos]); //REPERE
+	if (format[pos] == '.')
 	{
-		if (format[i + 1] == '*')
+		i = 1; //pr le .
+		if (format[pos + 1] == '*')
 		{
 			my_struct->precision = va_arg(args, int);
 			return (i + 1);
 		}
-		if (ft_strchr("0123456789", format[i]))
-			my_struct->precision = atoi(&format[i]);
-		while(ft_strchr ("0123456789", format[i]))
+		if (ft_strchr("0123456789", format[pos + 1]))
+			my_struct->precision = atoi(&format[pos + 1]);
+		while(ft_strchr("0123456789", format[pos + 1]))
+		{
 			i++;
+			pos++;
+		}
 	}
 	//printf("check precision... leftover : %s", &format[i]); //REPERE
 	return (i);
