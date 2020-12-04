@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 00:59:56 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/04 17:57:47 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int check_width(char *format, t_struct *my_struct, va_list args)
 	pos = 0;
 	i = 0;
 	//printf("check width... string start of checking width : %s", &format[pos]); //REPERE
-	while(format[pos] == '0' || format[pos] == '%' || format[pos] == '-')
+	while (format[pos] == '0' || format[pos] == '%' || format[pos] == '-')
 		pos++;
 	if (format[pos] == '*')
 	{
@@ -55,7 +55,6 @@ static int check_width(char *format, t_struct *my_struct, va_list args)
 	return (i);
 }
 
-// [WIP] NON FONCTIONNEL -> BESOIN D'UTILISER VAR pos comme pour le check_width
 static int check_precision(char *format, t_struct *my_struct, va_list args)
 {
 	int i;
@@ -64,7 +63,7 @@ static int check_precision(char *format, t_struct *my_struct, va_list args)
 	i = 0;
 	pos = 0;
 	//printf("check precision... string start of checking precision : %s", &format[pos]); //REPERE
-	while((format[pos] >= '0' && format[pos] <= '9') || format[pos] == '%' || format[pos] == '-')
+	while ((format[pos] >= '0' && format[pos] <= '9') || format[pos] == '%' || format[pos] == '-')
 		pos++;
 	//printf("check precision... string start of checking precision : %s", &format[pos]); //REPERE
 	if (format[pos] == '.')
@@ -77,7 +76,7 @@ static int check_precision(char *format, t_struct *my_struct, va_list args)
 		}
 		if (ft_strchr("0123456789", format[pos + 1]))
 			my_struct->precision = atoi(&format[pos + 1]);
-		while(ft_strchr("0123456789", format[pos + 1]))
+		while (ft_strchr("0123456789", format[pos + 1]))
 		{
 			i++;
 			pos++;
@@ -87,7 +86,7 @@ static int check_precision(char *format, t_struct *my_struct, va_list args)
 	return (i);
 }
 
-int	check_options(t_struct *my_struct, va_list args, char const *format)
+int			check_options(t_struct *my_struct, va_list args, char const *format)
 {
 	int i;
 	
@@ -96,6 +95,6 @@ int	check_options(t_struct *my_struct, va_list args, char const *format)
 	i += check_width((char *)format, my_struct, args);		// *0-9
 	i += check_precision((char *)format, my_struct, args);	// .*0-9
 	//printf("Check struct data :\nzero_padding: %d\nwidth: %d\nprecision: %d\nminus_align: %d\n\n", my_struct->zero_padding, my_struct->width, my_struct->precision, my_struct->minus_align);
-	return(i);
+	return (i);
 }
 

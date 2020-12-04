@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:05 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 14:15:52 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/04 17:56:06 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,41 @@ static int	print_str(char *str, int str_len)
 	int i;
 
 	i = 0;
-	if(str_len == 0)
+	if (str_len == 0)
 		return (0);
-	if(str_len > 0)
+	if (str_len > 0)
 	{
-		while(i < str_len)
+		while (i < str_len)
 		{
 			ft_putchar(str[i]);
 			i++;
 		}
 		return (i);
 	}
-	while(str[i])
+	while (str[i])
 	{
 		ft_putchar(str[i]);
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
-static int ft_strlen(char *str)
+static int	ft_strlen(char *str)
 {
-	int i = 0;
-	while(str[i])
+	int i;
+
+	i = 0;
+	while (str[i])
 		i++;
 	return (i);
 }
 
-static int print_space(int size)
+static int	print_space(int size)
 {
 	int count;
 
 	count = 0;
-	while(size > 0)
+	while (size > 0)
 	{
 		ft_putchar(' ');
 		size--;
@@ -66,7 +68,7 @@ static int print_space(int size)
 	return (count);
 }
 
-int	s_convert(va_list args, t_struct *my_struct, int count)
+int			s_convert(va_list args, t_struct *my_struct, int count)
 {
 	int		width;
 	int		str_len;
