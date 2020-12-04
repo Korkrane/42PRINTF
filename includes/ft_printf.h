@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:42:16 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/03 19:03:03 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/04 01:21:48 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strchr(const char *s, int c);
 int		check_options(t_struct *my_struct, va_list args, const char *format);
 int		select_conversion(char c, va_list args, t_struct *my_struct);
 int		c_convert(va_list args, t_struct *my_struct, int count);
-int		s_convert(va_list args, t_struct *my_struct);
+int		s_convert(va_list args, t_struct *my_struct, int count);
 int		p_convert(va_list args, t_struct *my_struct);
 int		d_convert(va_list args, t_struct *my_struct);
 int		i_convert(va_list args, t_struct *my_struct);
