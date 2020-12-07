@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 13:21:40 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 15:27:08 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:33:53 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		str_parsing(const char *format, t_struct *my_struct, va_list args)
 		}
 		i++;
 	}
-	printf("\nreturned value count_char: %d\n", my_struct->count_char);
+	//printf("\nreturned value count_char: %d\n", my_struct->count_char);
 	return (my_struct->count_char);
 }
 
