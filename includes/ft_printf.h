@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:42:16 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 18:01:41 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 14:45:13 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int		select_conversion(char c, va_list args, t_struct *my_struct);
 int		c_convert(va_list args, t_struct *my_struct, int count);
 int		s_convert(va_list args, t_struct *my_struct, int count);
 int		p_convert(va_list args, t_struct *my_struct, int count);
-int		d_convert(va_list args, t_struct *my_struct);
+int		d_convert(va_list args, t_struct *my_struct, int count);
 int		i_convert(va_list args, t_struct *my_struct);
 int		u_convert(va_list args, t_struct *my_struct);
 int		x_convert(va_list args, t_struct *my_struct, int count);
 int		X_convert(va_list args, t_struct *my_struct, int count);
-int		percent_convert(va_list args, t_struct *my_struct, int count);
+int		percent_convert(t_struct *my_struct, int count);
 
 #	endif

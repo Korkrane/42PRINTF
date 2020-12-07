@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_convert.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:46:22 by bahaas           ###   ########.fr       */
+/*   Created: 2020/10/03 17:08:57 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/18 18:34:17 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-/*
-int	i_convert(va_list args, t_struct *my_struct)
+#include "libft.h"
+
+t_list	*ft_lstlast(t_list *lst)
 {
-	return (0);
-}*/
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}

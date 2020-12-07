@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percent_convert.c                                  :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:55 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:44:43 by bahaas           ###   ########.fr       */
+/*   Created: 2020/09/16 22:52:12 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/17 16:15:07 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-static void	clean_struct(t_struct *my_struct)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	my_struct->zero_padding = 0;
-	my_struct->minus_align = 0;
-	my_struct->width = 0;
-	my_struct->precision = -1;
-}
+	size_t i;
+	size_t src_length;
+	size_t dst_length;
 
-int	percent_convert(t_struct *my_struct, int count)
-{
-	ft_putchar('%');
-	clean_struct(my_struct);
-	return (count + 1);
+	i = 0;
+	src_length = ft_strlen(src);
+	dst_length = ft_strlen(dst);
+	if (size <= dst_length)
+		return (src_length + size);
+	while (src[i] && i + dst_length < size - 1)
+	{
+		dst[i + dst_length] = src[i];
+		i++;
+	}
+	dst[i + dst_length] = '\0';
+	return (src_length + dst_length);
 }

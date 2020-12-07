@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_convert.c                                        :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:46:22 by bahaas           ###   ########.fr       */
+/*   Created: 2020/10/13 19:51:56 by bahaas            #+#    #+#             */
+/*   Updated: 2020/10/13 21:35:09 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-/*
-int	i_convert(va_list args, t_struct *my_struct)
+#include "libft.h"
+
+int		ft_isprint(int c)
 {
+	if (c >= 32 && c < 127)
+		return (1);
 	return (0);
-}*/
+}

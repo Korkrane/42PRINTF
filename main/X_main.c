@@ -6,11 +6,11 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:41:58 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 17:47:48 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 14:19:48 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int main(void)
 {

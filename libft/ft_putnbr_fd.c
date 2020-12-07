@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_convert.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:46:22 by bahaas           ###   ########.fr       */
+/*   Created: 2020/09/16 22:52:11 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/05 15:19:06 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-/*
-int	i_convert(va_list args, t_struct *my_struct)
+#include "libft.h"
+
+void	ft_putnbr_fd(int n, int fd)
 {
-	return (0);
-}*/
+	if (n < 0)
+	{
+		if (n == -2147483648)
+			ft_putstr_fd("-2147483648", fd);
+		else
+		{
+			ft_putchar_fd('-', fd);
+			n = -n;
+		}
+	}
+	if (n >= 0 && n <= 9)
+		ft_putchar_fd(n + '0', fd);
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+}

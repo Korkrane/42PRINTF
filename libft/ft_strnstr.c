@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_convert.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:46:22 by bahaas           ###   ########.fr       */
+/*   Created: 2020/09/16 22:52:13 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/16 18:54:49 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-/*
-int	i_convert(va_list args, t_struct *my_struct)
+#include "libft.h"
+
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	return (0);
-}*/
+	size_t		i;
+	size_t		j;
+
+	i = 0;
+	if (*little == '\0')
+		return ((char *)big);
+	while (big[i] && i < len)
+	{
+		j = 0;
+		while (big[j + i] == little[j] && i + j < len)
+		{
+			j++;
+			if (little[j] == '\0')
+				return ((char *)&big[i]);
+		}
+		i++;
+	}
+	return (NULL);
+}

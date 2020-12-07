@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_convert.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:46:22 by bahaas           ###   ########.fr       */
+/*   Created: 2020/09/16 22:52:10 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/17 10:45:55 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-/*
-int	i_convert(va_list args, t_struct *my_struct)
+#include "libft.h"
+
+int			ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	return (0);
-}*/
+	size_t	i;
+	char	*tmp_s1;
+	char	*tmp_s2;
+
+	tmp_s1 = (char *)s1;
+	tmp_s2 = (char *)s2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (tmp_s1 && tmp_s2 && tmp_s1[i] == tmp_s2[i] && i < n - 1)
+		i++;
+	return ((unsigned char)tmp_s1[i] - (unsigned char)tmp_s2[i]);
+}

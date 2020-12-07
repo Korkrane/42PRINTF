@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:36:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 14:26:22 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 14:44:58 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,21 @@ int	select_conversion(char c, va_list args, t_struct *my_struct)
 		count += c_convert(args, my_struct, count);
 	else if (c == 's')
 		count += s_convert(args, my_struct, count);
-	/*
 	else if (c == 'p')
-		count += p_convert(args, my_struct);
+		count += p_convert(args, my_struct, count);
 	else if (c == 'd')
-		count += d_convert(args, my_struct);
+		count += d_convert(args, my_struct, count);
+	/*
 	else if (c == 'i')
 		count += i_convert(args, my_struct);
 	else if (c == 'u')
 		count += u_convert(args, my_struct);
-	else if (c == 'x')
-		count += x_convert(args, my_struct);
-	else if (c == 'X')
-		count += X_convert(args, my_struct);
 	*/
+	else if (c == 'x')
+		count += x_convert(args, my_struct, count);
+	else if (c == 'X')
+		count += X_convert(args, my_struct, count);
 	else if (c == '%')
-		count += percent_convert(args, my_struct, count);
+		count += percent_convert(my_struct, count);
 	return (count);
 }
-

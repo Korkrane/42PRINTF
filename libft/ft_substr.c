@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percent_convert.c                                  :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:55 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:44:43 by bahaas           ###   ########.fr       */
+/*   Created: 2020/09/16 22:52:14 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/18 17:52:05 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
-static void	clean_struct(t_struct *my_struct)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	my_struct->zero_padding = 0;
-	my_struct->minus_align = 0;
-	my_struct->width = 0;
-	my_struct->precision = -1;
-}
+	size_t	i;
+	char	*str;
 
-int	percent_convert(t_struct *my_struct, int count)
-{
-	ft_putchar('%');
-	clean_struct(my_struct);
-	return (count + 1);
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return (ft_calloc(1, 1));
+	if (start + len > ft_strlen(s))
+		len = ft_strlen(s) - start;
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

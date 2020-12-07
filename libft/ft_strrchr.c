@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_convert.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 17:26:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:46:22 by bahaas           ###   ########.fr       */
+/*   Created: 2020/10/01 18:21:49 by bahaas            #+#    #+#             */
+/*   Updated: 2020/11/18 17:26:08 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-/*
-int	i_convert(va_list args, t_struct *my_struct)
+#include "libft.h"
+
+char	*ft_strrchr(const char *s, int c)
 {
-	return (0);
-}*/
+	int		i;
+	char	*str;
+
+	str = (char *)s;
+	i = ft_strlen(str) + 1;
+	while (i--)
+	{
+		if (str[i] == c)
+			return ((char *)&str[i]);
+	}
+	return (NULL);
+}

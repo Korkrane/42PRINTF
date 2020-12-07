@@ -6,13 +6,13 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:15 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/02 17:40:34 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 14:46:45 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
+/*
 int	u_convert(va_list args, t_struct *my_struct)
 {
-
-}
+	return (0);
+}*/

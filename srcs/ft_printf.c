@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf2.c                                          :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 13:21:40 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 21:40:11 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 14:17:08 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	set_struct(t_struct *my_struct, char const *format)
 {
