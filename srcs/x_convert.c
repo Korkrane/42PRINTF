@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:33 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 17:34:27 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 21:30:24 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ static void	clean_struct(t_struct *my_struct)
 	my_struct->precision = -1;
 }
 
-int	u_length(unsigned int u)
+int	hex_length(unsigned int hex)
 {
 	int len;
 
 	len = 0;
-	while(u > 0)
+	if(hex == 0)
+		return(1);
+	while(hex > 0)
 	{
-		u /= 16;
+		hex /= 16;
 		len++;
 	}
 	return(len);
@@ -75,30 +77,33 @@ static int print_zero(int size)
 	return (count);
 }
 
+int hex_prec_0(t_struct *my_struct, int hex, int count)
+{
+	if(my_struct->precision == 0 && hex == 0)
+		count += print_space(my_struct->width);
+	return	(count);
+}
+
 int	x_convert(va_list args, t_struct *my_struct, int count)
 {
-	unsigned int	u;
-	int				u_len;
+	unsigned int	hex;
+	int				hex_len;
+	int				len;	
 
-	u = va_arg(args, unsigned int);
-	u_len = u_length(u);
-	if(my_struct->minus_align == 0)
-	{
-		if(my_struct->zero_padding)
-			count += print_zero(my_struct->width - u_len);
-		else if(my_struct->precision > u_len && my_struct->width > u_len)
-			count += print_space(my_struct->width - u_len - (my_struct->precision - u_len)) + print_zero(my_struct->precision - u_len);
-		else if(my_struct->precision > u_len)
-			count += print_zero(my_struct->precision - u_len);
-		else if(my_struct->width > 0)
-			count += print_space(my_struct->width - u_len);
-		ft_putnbr_base(u);
-	}
-	if(my_struct->minus_align == 1)
-	{
-		ft_putnbr_base(u);
-		count += print_space(my_struct->width - u_len);
-	}
+	hex = va_arg(args, unsigned int);
+	hex_len = hex_length(hex);
+	len = (my_struct->precision > hex_len) ? my_struct->precision : hex_len;
+	if(my_struct->precision == 0 && hex == 0)
+		return(hex_prec_0(my_struct, hex, count));
+	if (my_struct->minus_align == 0 && (my_struct->zero_padding == 0 || my_struct->precision != -1))
+		count += print_space(my_struct->width - len);
+	if (my_struct->zero_padding == 1 && my_struct->precision == -1)
+		count += print_zero(my_struct->width - hex_len);
+	if (my_struct->precision)
+		count += print_zero(my_struct->precision - hex_len);
+	ft_putnbr_base(hex);
+	if (my_struct->minus_align)
+		count += print_space(my_struct->width - len);
 	clean_struct(my_struct);
-	return (count + u_len);
+	return (count + hex_len);
 }

@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:05 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 15:21:35 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 19:45:47 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ static void	clean_struct(t_struct *my_struct)
 	my_struct->minus_align = 0;
 	my_struct->width = 0;
 	my_struct->precision = -1;
+}
+
+static int	print_space(int size)
+{
+	int count;
+
+	count = 0;
+	while (size > 0)
+	{
+		ft_putchar(' ');
+		size--;
+		count++;
+	}
+	return (count);
 }
 
 static int	print_str(char *str, int str_len)
@@ -44,20 +58,6 @@ static int	print_str(char *str, int str_len)
 	return (i);
 }
 
-static int	print_space(int size)
-{
-	int count;
-
-	count = 0;
-	while (size > 0)
-	{
-		ft_putchar(' ');
-		size--;
-		count++;
-	}
-	return (count);
-}
-
 int			s_convert(va_list args, t_struct *my_struct, int count)
 {
 	int		width;
@@ -69,14 +69,18 @@ int			s_convert(va_list args, t_struct *my_struct, int count)
 	if (!str)
 		str = "(null)";
 	str_len = ft_strlen(str);
-	if (my_struct->precision && my_struct->precision < str_len)
+	if (my_struct->precision >= 0 && my_struct->precision < str_len)
 		str_len = my_struct->precision;
-	if (my_struct->minus_align != 0)
-		count += print_str(str, str_len) + print_space(width - str_len);
-	else if (my_struct->minus_align == 0 && width > 0)
-		count += print_space(width - str_len) + print_str(str, str_len);
-	else
+	if (my_struct->minus_align == 1)
+	{
 		count += print_str(str, str_len);
+		count += print_space(width - str_len);
+	}
+	else if (my_struct->minus_align == 0)
+	{
+		count += print_space(width - str_len);
+		count += print_str(str, str_len);
+	}
 	clean_struct(my_struct);
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 17:57:47 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 21:44:46 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static int check_precision(char *format, t_struct *my_struct, va_list args)
 			my_struct->precision = va_arg(args, int);
 			return (i + 1);
 		}
-		if (ft_strchr("0123456789", format[pos + 1]))
+		//printf("a :%s\n", &format[pos + 1]);
+		if (ft_strchr("pXxs0123456789", format[pos + 1]))
 			my_struct->precision = atoi(&format[pos + 1]);
 		while (ft_strchr("0123456789", format[pos + 1]))
 		{

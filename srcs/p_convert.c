@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 19:55:15 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 21:58:18 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static long	address_length(long address_len)
 	long len;
 
 	len = 0;
+	if(address_len == 0)
+		return(2);
 	while(address_len > 0)
 	{
 		address_len /= 16;
@@ -68,20 +70,26 @@ int	p_convert(va_list args, t_struct *my_struct, int count)
 
 	address = va_arg(args, long);
 	address_len = address_length(address);
+	if(my_struct->precision == 0 && address == 0)
+	{
+		ft_putchar('0');
+		ft_putchar('x');
+		return(count + 2);
+	}
 	if(my_struct->minus_align == 0)
 	{
 		if(my_struct->width - 2 > 0)
-			count += print_space(my_struct->width - 2 - address_len);
+			count += print_space(my_struct->width - 1 - address_len);
 		ft_putchar('0');
-		ft_putchar('X');
+		ft_putchar('x');
 		ft_putnbr_base(address);
 	}
 	else if(my_struct->minus_align == 1)
 	{
 		ft_putchar('0');
-		ft_putchar('X');
+		ft_putchar('x');
 		ft_putnbr_base(address);
-		count += print_space(my_struct->width - 2 - address_len);
+		count += print_space(my_struct->width - 1 - address_len);
 	}
 	clean_struct(my_struct);
 	return (count + 2 + address_len);
