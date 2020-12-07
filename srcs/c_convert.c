@@ -6,16 +6,11 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:24:08 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/03 19:05:58 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 15:15:27 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
 
 int		c_convert(va_list args, t_struct *my_struct, int count)
 {

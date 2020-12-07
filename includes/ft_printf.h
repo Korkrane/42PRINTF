@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:42:16 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:45:13 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 15:25:16 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include "../libft/libft.h"
 
 // TO DELETE LATER
 #include <stdio.h>
@@ -31,10 +32,9 @@ typedef	struct	s_struct
 	int			precision;		// . option
 }				t_struct;
 
-int		ft_printf(const char *, ...);
 void	ft_putchar(char c);
+int		ft_printf(const char *, ...);
 void	set_struct(t_struct *my_struct, char const *format);
-char	*ft_strchr(const char *s, int c);
 int		check_options(t_struct *my_struct, va_list args, const char *format);
 int		select_conversion(char c, va_list args, t_struct *my_struct);
 int		c_convert(va_list args, t_struct *my_struct, int count);

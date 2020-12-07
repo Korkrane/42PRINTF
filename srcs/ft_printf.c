@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 13:21:40 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 14:17:08 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 15:27:08 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@ void	set_struct(t_struct *my_struct, char const *format)
 	my_struct->minus_align = 0;
 	my_struct->width = 0;
 	my_struct->precision = -1; //prec 0 with s return null
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if (s[i] == c)
-		return ((char *)&s[i]);
-	return (NULL);
 }
 
 int		str_parsing(const char *format, t_struct *my_struct, va_list args)

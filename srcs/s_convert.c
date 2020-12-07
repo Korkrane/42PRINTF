@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:05 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/04 17:56:06 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/07 15:21:35 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,6 @@ static int	print_str(char *str, int str_len)
 		ft_putchar(str[i]);
 		i++;
 	}
-	return (i);
-}
-
-static int	ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
 	return (i);
 }
 
