@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 21:58:18 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:31:17 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ static long	address_length(long address_len)
 	return(len);
 }
 
+static void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
 static void	ft_putnbr_base(long nbr)
 {
 	char		*base;
@@ -63,34 +74,58 @@ static int print_space(int size)
 	return (count);
 }
 
+static int print_zero(int size)
+{
+	int count;
+
+	count = 0;
+	while(size > 0)
+	{
+		ft_putchar('0');
+		size--;
+		count++;
+	}
+	return (count);
+}
+
+int p_prec_0(t_struct *my_struct, int address, int count)
+{
+	if(my_struct->precision == 0 && address == 0)
+		ft_putstr("0x");
+	return (count + 2);
+}
+
+int minus_0(t_struct *my_struct, long address, int address_length, int count)
+{
+	count += print_space(my_struct->width - 2 - address_length);
+	ft_putstr("0x");
+	count += print_zero(my_struct->precision - address_length);
+	ft_putnbr_base(address);
+	return (count);
+}
+
+int minus_1(t_struct *my_struct, long address, int address_length, int count)
+{
+	ft_putstr("0x");
+	count += print_zero(my_struct->precision - address_length);
+	ft_putnbr_base(address);
+	count += print_space(my_struct->width - 2 - address_length);
+	return (count);
+}
+
 int	p_convert(va_list args, t_struct *my_struct, int count)
 {
 	long	address;
-	int					address_len;
+	int		address_len;
 
 	address = va_arg(args, long);
 	address_len = address_length(address);
 	if(my_struct->precision == 0 && address == 0)
-	{
-		ft_putchar('0');
-		ft_putchar('x');
-		return(count + 2);
-	}
+		return(p_prec_0(my_struct, address, count));
 	if(my_struct->minus_align == 0)
-	{
-		if(my_struct->width - 2 > 0)
-			count += print_space(my_struct->width - 1 - address_len);
-		ft_putchar('0');
-		ft_putchar('x');
-		ft_putnbr_base(address);
-	}
+		count += minus_0(my_struct, address, address_len, count);
 	else if(my_struct->minus_align == 1)
-	{
-		ft_putchar('0');
-		ft_putchar('x');
-		ft_putnbr_base(address);
-		count += print_space(my_struct->width - 1 - address_len);
-	}
+		count += minus_1(my_struct, address, address_len, count);
 	clean_struct(my_struct);
 	return (count + 2 + address_len);
 }
