@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/08 16:31:17 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:49:54 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static long	address_length(long address_len)
 
 	len = 0;
 	if(address_len == 0)
-		return(2);
+		return(1);
 	while(address_len > 0)
 	{
 		address_len /= 16;
@@ -90,6 +90,8 @@ static int print_zero(int size)
 
 int p_prec_0(t_struct *my_struct, int address, int count)
 {
+	if(my_struct->width > 0)
+		count += print_space(my_struct->width - 2);
 	if(my_struct->precision == 0 && address == 0)
 		ft_putstr("0x");
 	return (count + 2);
