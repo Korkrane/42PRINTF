@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:05 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 13:03:37 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:21:59 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ static int	print_str(char *str, int str_len)
 
 int			s_convert(va_list args, t_struct *data, int count)
 {
-	int		width;
 	int		str_len;
 	char	*str;
 
 	str = va_arg(args, char *);
-	width = data->width;
 	if (!str)
 		str = "(null)";
 	str_len = ft_strlen(str);
@@ -52,12 +50,16 @@ int			s_convert(va_list args, t_struct *data, int count)
 	if (data->minus_align == 1)
 	{
 		count += print_str(str, str_len);
-		print_space(width - str_len, data);
+		print_space(data->width - str_len, data);
+		if (data->width < 0)
+			print_space(-data->width - str_len, data);
 	}
 	else if (data->minus_align == 0)
 	{
-		print_space(width - str_len, data);
+		print_space(data->width - str_len, data);
 		count += print_str(str, str_len);
+		if (data->width < 0)
+			print_space(-data->width - str_len, data);
 	}
 	clean_struct(data);
 	return (count);

@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 13:21:40 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 14:02:26 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:47:51 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	set_struct(t_struct *data)
 {
+	data->width_len = 0;
+	data->prec_len = 0;
+	data->pos = 1;
 	data->count_char = 0;
 	data->zero = 0;
 	data->minus_align = 0;
@@ -36,6 +39,8 @@ int		str_parsing(const char *format, t_struct *data, va_list args)
 		else
 		{
 			i += check_options(data, args, &format[i]);
+			if (!ft_strchr("cspdiuxX%", format[i]))
+				return (data->count_char);
 			data->count_char += select_conversion(format[i], args, data);
 		}
 		i++;

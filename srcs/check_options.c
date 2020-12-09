@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 13:44:40 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:58:46 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,70 @@
 
 static int	check_flags(char *format, t_struct *data)
 {
-	int i;
-
-	i = 1;
-	while (ft_strchr("-0", format[i]))
+	while (ft_strchr("-0", format[data->pos]))
 	{
-		if (format[i] == '-')
+		if (format[data->pos] == '-')
 			data->minus_align = 1;
-		if (format[i] == '0')
+		if (format[data->pos] == '0')
 			data->zero = 1;
-		i++;
+		data->pos++;
 	}
-	return (i);
+	return (data->pos);
 }
 
 static int	check_width(char *format, t_struct *data, va_list args)
 {
 	int i;
-	int pos;
 
-	pos = 0;
 	i = 0;
-	while (format[pos] == '0' || format[pos] == '%' || format[pos] == '-')
-		pos++;
-	if (format[pos] == '*')
+	data->width_len = 0;
+	while (format[i] == '0' || format[i] == '%' || format[i] == '-')
+	{
+		if (format[i + 1] == '%')
+			return (0);
+		i++;
+	}
+	if (format[i] == '*')
 	{
 		data->width = va_arg(args, int);
-		return (i + 1);
+		return (1);
 	}
-	if (ft_strchr("0123456789", format[pos]))
-		data->width = atoi(&format[pos]);
-	while (ft_strchr("0123456789", format[pos]))
+	if (ft_strchr("0123456789", format[i]))
+		data->width = ft_atoi(&format[i]);
+	while (ft_strchr("0123456789", format[i]))
 	{
+		data->width_len++;
 		i++;
-		pos++;
 	}
-	return (i);
+	return (data->width_len);
 }
 
 static int	check_prec(char *format, t_struct *data, va_list args)
 {
 	int i;
-	int pos;
 
 	i = 0;
-	pos = 0;
-	while (ft_isdigit(format[pos]) || format[pos] == '%' || format[pos] == '-')
-		pos++;
-	if (format[pos] == '.')
+	while (ft_isdigit(format[i]) || format[i] == '%' || format[i] == '-'
+			|| format[i] == '*')
 	{
-		i = 1;
-		if (format[pos + 1] == '*')
+		if (format[i + 1] == '%')
+			return (data->prec_len);
+		i++;
+	}
+	if (format[i] == '.')
+	{
+		data->prec_len = 1;
+		if (format[i + 1] == '*')
 		{
 			data->prec = va_arg(args, int);
-			return (i + 1);
+			return (data->prec_len + 1);
 		}
-		if (ft_strchr("uidpXxs0123456789", format[pos + 1]))
-			data->prec = atoi(&format[pos + 1]);
-		while (ft_strchr("0123456789", format[pos + 1]))
-		{
-			i++;
-			pos++;
-		}
+		if (ft_strchr("uidpXxs0123456789", format[i + 1]))
+			data->prec = ft_atoi(&format[i + 1]);
+		while (ft_strchr("0123456789", format[i++ + 1]))
+			data->prec_len++;
 	}
-	return (i);
+	return (data->prec_len);
 }
 
 int			check_options(t_struct *data, va_list args, char const *format)

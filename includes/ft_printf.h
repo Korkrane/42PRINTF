@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:42:16 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 14:30:33 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:33 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@
 # define BASE_16 16
 
 typedef	struct	s_struct
-{
+{	
+	int			width_len;
+	int			prec_len;
+	int			pos;
 	int			count_char;
 	int			zero;
 	int			minus_align;
