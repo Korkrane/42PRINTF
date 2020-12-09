@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 14:03:49 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:30:46 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ static int	i_length(int i)
 
 static void	ft_putnbr(int nbr)
 {
-	if (nbr < 0)
+	if (nbr == -2147483648)
 	{
-		if (nbr == -2147483648)
-			write(1, "2147483648", 10);
-		nbr *= -1;
+		write(1, "2147483648", 10);
+		return ;
 	}
+	if (nbr < 0)
+		nbr *= -1;
 	if (nbr >= 10)
 	{
 		ft_putnbr(nbr / BASE_10);
@@ -44,54 +45,46 @@ static void	ft_putnbr(int nbr)
 		ft_putchar(nbr + '0');
 }
 
-static void	minus_0(t_struct *data, int i, int i_len)
+static void	minus_0(t_struct *data, long i, int i_len, int sign)
 {
-	int minus;
-
-	minus = 0;
-	if (i < 0)
-	{
-		minus = 1;
+	if (sign == 1)
 		data->count_char += 1;
-	}
 	if (data->zero == 0 || data->prec != -1)
 	{
 		if (data->prec > i_len)
-			print_space(data->width - data->prec - minus, data);
+			print_space(data->width - data->prec - sign, data);
 		else
-			print_space(data->width - i_len - minus, data);
+			print_space(data->width - i_len - sign, data);
 	}
-	if (i < 0)
+	if (sign == 1)
 		ft_putchar('-');
 	if (data->zero == 1 && data->prec == -1)
 	{
 		if (data->prec > i_len)
-			print_zero(data->width - data->prec - minus, data);
+			print_zero(data->width - data->prec - sign, data);
 		else
-			print_zero(data->width - i_len - minus, data);
+			print_zero(data->width - i_len - sign, data);
 	}
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
+	if (data->width < 0)
+		print_space(-data->width - i_len - sign, data);
 }
 
-static void	minus_1(t_struct *data, int i, int i_len)
+static void	minus_1(t_struct *data, int i, int i_len, int sign)
 {
-	int minus;
-
-	minus = 0;
-	if (i < 0)
+	if (sign == 1)
 	{
-		minus = 1;
 		data->count_char += 1;
 		ft_putchar('-');
 	}
 	if (data->zero == 1 && data->prec == -1)
 	{
 		if (data->prec > i_len)
-			print_zero(data->width - data->prec - minus, data);
+			print_zero(data->width - data->prec - sign, data);
 		else
-			print_zero(data->width - i_len - minus, data);
+			print_zero(data->width - i_len - sign, data);
 	}
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
@@ -99,28 +92,32 @@ static void	minus_1(t_struct *data, int i, int i_len)
 	if (data->zero == 0 || data->prec != -1)
 	{
 		if (data->prec > i_len)
-			print_space(data->width - data->prec - minus, data);
+			print_space(data->width - data->prec - sign, data);
 		else
-			print_space(data->width - i_len - minus, data);
+			print_space(data->width - i_len - sign, data);
 	}
 }
 
 int			d_convert(va_list args, t_struct *data, int count)
 {
-	int i;
-	int i_len;
+	long	i;
+	int		i_len;
+	int		sign;
 
-	i = va_arg(args, int);
+	i = (long)va_arg(args, int);
 	i_len = i_length(i);
+	sign = 0;
+	if (i < 0)
+		sign = 1;
 	if (i == 0 && data->prec == 0)
 	{
 		print_space(data->width, data);
 		return (count);
 	}
 	if (data->minus_align == 0)
-		minus_0(data, i, i_len);
+		minus_0(data, i, i_len, sign);
 	else if (data->minus_align == 1)
-		minus_1(data, i, i_len);
+		minus_1(data, i, i_len, sign);
 	clean_struct(data);
 	return (count + i_len);
 }
