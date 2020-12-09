@@ -6,33 +6,11 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:05 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 19:45:47 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 13:03:37 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-static void	clean_struct(t_struct *my_struct)
-{
-	my_struct->zero_padding = 0;
-	my_struct->minus_align = 0;
-	my_struct->width = 0;
-	my_struct->precision = -1;
-}
-
-static int	print_space(int size)
-{
-	int count;
-
-	count = 0;
-	while (size > 0)
-	{
-		ft_putchar(' ');
-		size--;
-		count++;
-	}
-	return (count);
-}
 
 static int	print_str(char *str, int str_len)
 {
@@ -58,29 +36,29 @@ static int	print_str(char *str, int str_len)
 	return (i);
 }
 
-int			s_convert(va_list args, t_struct *my_struct, int count)
+int			s_convert(va_list args, t_struct *data, int count)
 {
 	int		width;
 	int		str_len;
 	char	*str;
 
 	str = va_arg(args, char *);
-	width = my_struct->width;
+	width = data->width;
 	if (!str)
 		str = "(null)";
 	str_len = ft_strlen(str);
-	if (my_struct->precision >= 0 && my_struct->precision < str_len)
-		str_len = my_struct->precision;
-	if (my_struct->minus_align == 1)
+	if (data->prec >= 0 && data->prec < str_len)
+		str_len = data->prec;
+	if (data->minus_align == 1)
 	{
 		count += print_str(str, str_len);
-		count += print_space(width - str_len);
+		print_space(width - str_len, data);
 	}
-	else if (my_struct->minus_align == 0)
+	else if (data->minus_align == 0)
 	{
-		count += print_space(width - str_len);
+		print_space(width - str_len, data);
 		count += print_str(str, str_len);
 	}
-	clean_struct(my_struct);
+	clean_struct(data);
 	return (count);
 }

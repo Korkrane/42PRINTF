@@ -6,104 +6,96 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:33 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/07 21:33:53 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/09 13:49:26 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-static void	clean_struct(t_struct *my_struct)
-{
-	my_struct->zero_padding = 0;
-	my_struct->minus_align = 0;
-	my_struct->width = 0;
-	my_struct->precision = -1;
-}
 
 static int	hex_length(unsigned int hex)
 {
 	int len;
 
 	len = 0;
-	if(hex == 0)
-		return(1);
-	while(hex > 0)
+	if (hex == 0)
+		return (1);
+	while (hex > 0)
 	{
-		hex /= 16;
+		hex /= BASE_16;
 		len++;
 	}
-	return(len);
+	return (len);
 }
 
-static void	ft_putnbr_base(unsigned int nbr)
+static void	ft_putnbr_base(unsigned int nbr, char *base)
 {
-	char		*base;
-
-	base = "0123456789ABCDEF";
-	if(nbr >= 16)
+	if (nbr >= 16)
 	{
-		ft_putnbr_base(nbr / 16);
-		ft_putnbr_base(nbr % 16);
+		ft_putnbr_base(nbr / BASE_16, base);
+		ft_putnbr_base(nbr % BASE_16, base);
 	}
 	else
-		ft_putchar(base[nbr % 16]);
+		ft_putchar(base[nbr % BASE_16]);
 }
 
-static int print_space(int size)
+static void	minus_0(t_struct *data, int i, int i_len)
 {
-	int count;
-
-	count = 0;
-	while(size > 0)
+	if (data->zero == 0 || data->prec != -1)
 	{
-		ft_putchar(' ');
-		size--;
-		count++;
+		if (data->prec > i_len)
+			print_space(data->width - data->prec, data);
+		else
+			print_space(data->width - i_len, data);
 	}
-	return (count);
-}
-
-static int print_zero(int size)
-{
-	int count;
-
-	count = 0;
-	while(size > 0)
+	if (data->zero == 1 && data->prec == -1)
 	{
-		ft_putchar('0');
-		size--;
-		count++;
+		if (data->prec > i_len)
+			print_zero(data->width - data->prec, data);
+		else
+			print_zero(data->width - i_len, data);
 	}
-	return (count);
+	if (data->prec > i_len && data->prec != -1)
+		print_zero(data->prec - i_len, data);
+	ft_putnbr_base(i, HEX_MAJ);
 }
 
-static int hex_prec_0(t_struct *my_struct, int hex, int count)
+static void	minus_1(t_struct *data, int i, int i_len)
 {
-	if(my_struct->precision == 0 && hex == 0)
-		count += print_space(my_struct->width);
-	return	(count);
+	if (data->zero == 1 && data->prec == -1)
+	{
+		if (data->prec > i_len)
+			print_zero(data->width - data->prec, data);
+		else
+			print_zero(data->width - i_len, data);
+	}
+	if (data->prec > i_len && data->prec != -1)
+		print_zero(data->prec - i_len, data);
+	ft_putnbr_base(i, HEX_MAJ);
+	if (data->zero == 0 || data->prec != -1)
+	{
+		if (data->prec > i_len)
+			print_space(data->width - data->prec, data);
+		else
+			print_space(data->width - i_len, data);
+	}
 }
 
-int	X_convert(va_list args, t_struct *my_struct, int count)
+int			xbig_convert(va_list args, t_struct *data, int count)
 {
 	unsigned int	hex;
 	int				hex_len;
-	int				len;	
 
 	hex = va_arg(args, unsigned int);
 	hex_len = hex_length(hex);
-	len = (my_struct->precision > hex_len) ? my_struct->precision : hex_len;
-	if(my_struct->precision == 0 && hex == 0)
-		return(hex_prec_0(my_struct, hex, count));
-	if (my_struct->minus_align == 0 && (my_struct->zero_padding == 0 || my_struct->precision != -1))
-		count += print_space(my_struct->width - len);
-	if (my_struct->zero_padding == 1 && my_struct->precision == -1)
-		count += print_zero(my_struct->width - hex_len);
-	if (my_struct->precision)
-		count += print_zero(my_struct->precision - hex_len);
-	ft_putnbr_base(hex);
-	if (my_struct->minus_align)
-		count += print_space(my_struct->width - len);
-	clean_struct(my_struct);
+	if (hex == 0 && data->prec == 0)
+	{
+		print_space(data->width, data);
+		return (count);
+	}
+	if (data->minus_align == 0)
+		minus_0(data, hex, hex_len);
+	else if (data->minus_align == 1)
+		minus_1(data, hex, hex_len);
+	clean_struct(data);
 	return (count + hex_len);
 }
