@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 13:51:22 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 17:28:59 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ static void	ft_putnbr(long nbr)
 
 static void	minus_0(t_struct *data, long i, int i_len)
 {
-	if (data->zero == 0 || data->prec != -1)
+	if (data->zero == 0 || data->prec > -1)
 	{
 		if (data->prec > i_len)
 			print_space(data->width - data->prec, data);
 		else
 			print_space(data->width - i_len, data);
 	}
-	if (data->zero == 1 && data->prec == -1)
+	if (data->zero == 1 && data->prec <= -1)
 	{
 		if (data->prec > i_len)
 			print_zero(data->width - data->prec, data);

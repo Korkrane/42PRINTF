@@ -6,12 +6,12 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 16:12:22 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 17:28:39 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-/*
+
 static int	i_length(int i)
 {
 	int len;
@@ -95,13 +95,6 @@ static void	minus_1(t_struct *data, int i, int i_len, int sign)
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
-	if (data->zero == 0 || data->prec != -1)
-	{
-		if (data->prec > i_len)
-			print_space(data->width - data->prec - sign, data);
-		else
-			print_space(data->width - i_len - sign, data);
-	}
 	if(data->width < 0)
 		data->width *= -1;
 	if (data->prec > i_len)
@@ -134,7 +127,7 @@ int			d_convert(va_list args, t_struct *data, int count)
 		minus_1(data, i, i_len, sign);
 	clean_struct(data);
 	return (count + i_len);
-}*/
+}
 
 /*
 static int			print_moins(int nbr)
@@ -211,7 +204,7 @@ int					d_convert(va_list args, t_struct *data, int count)
 	return (i);
 }
 */
-
+/*
 static int			print_moins(int nbr)
 {
 	if (nbr < 0)
@@ -307,4 +300,4 @@ int					d_convert(va_list param, t_struct *flags)
 	if (flags->minus_align == 1)
 		i += ft_putnchar(' ', flags->width - len);
 	return (i);
-}
+}*/

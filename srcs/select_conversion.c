@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:36:24 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 15:46:29 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 17:01:26 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	select_conversion(char c, va_list args, t_struct *data)
 	else if (c == 'p')
 		count += p_convert(args, data, count);
 	else if (c == 'd')
-		count += d_convert(args, data);
+		count += d_convert(args, data, count);
 	else if (c == 'i')
-		count += d_convert(args, data);
+		count += d_convert(args, data, count);
 	else if (c == 'u')
 		count += u_convert(args, data, count);
 	else if (c == 'x')
