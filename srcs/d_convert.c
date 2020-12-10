@@ -6,12 +6,12 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 14:32:39 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 16:12:22 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
+/*
 static int	i_length(int i)
 {
 	int len;
@@ -49,7 +49,7 @@ static void	minus_0(t_struct *data, long i, int i_len, int sign)
 {
 	if (sign == 1)
 		data->count_char += 1;
-	if (data->zero == 0 || data->prec != -1)
+	if (data->zero == 0 || data->prec > -1)
 	{
 		if (data->prec > i_len)
 			print_space(data->width - data->prec - sign, data);
@@ -58,7 +58,7 @@ static void	minus_0(t_struct *data, long i, int i_len, int sign)
 	}
 	if (sign == 1)
 		ft_putchar('-');
-	if (data->zero == 1 && data->prec == -1)
+	if (data->zero == 1 && data->prec <= -1)
 	{
 		if (data->prec > i_len)
 			print_zero(data->width - data->prec - sign, data);
@@ -68,8 +68,14 @@ static void	minus_0(t_struct *data, long i, int i_len, int sign)
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
-	if (data->width < 0 && data->prec != 0)
-		print_space(-data->width - i_len - sign, data);
+	if (data->width < 0)
+	{
+		data->width *= -1;
+		if(data->prec <= 0)
+		print_space(data->width - i_len - sign, data);
+		else if(data->prec < data->width)
+		print_space(data->width - i_len - sign, data);
+	}
 }
 
 static void	minus_1(t_struct *data, int i, int i_len, int sign)
@@ -89,13 +95,13 @@ static void	minus_1(t_struct *data, int i, int i_len, int sign)
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
-	/*if (data->zero == 0 || data->prec != -1)
+	if (data->zero == 0 || data->prec != -1)
 	{
 		if (data->prec > i_len)
 			print_space(data->width - data->prec - sign, data);
 		else
 			print_space(data->width - i_len - sign, data);
-	}*/
+	}
 	if(data->width < 0)
 		data->width *= -1;
 	if (data->prec > i_len)
@@ -117,6 +123,8 @@ int			d_convert(va_list args, t_struct *data, int count)
 		sign = 1;
 	if (i == 0 && data->prec == 0)
 	{
+		if(data->width < 0)
+			data->width *= -1;
 		print_space(data->width, data);
 		return (count);
 	}
@@ -126,7 +134,7 @@ int			d_convert(va_list args, t_struct *data, int count)
 		minus_1(data, i, i_len, sign);
 	clean_struct(data);
 	return (count + i_len);
-}
+}*/
 
 /*
 static int			print_moins(int nbr)
@@ -201,9 +209,9 @@ int					d_convert(va_list args, t_struct *data, int count)
 	if (data->minus_align == 1)
 		print_space(data->width - len, data);
 	return (i);
-}*/
+}
+*/
 
-/*
 static int			print_moins(int nbr)
 {
 	if (nbr < 0)
@@ -258,7 +266,7 @@ static int			ft_print_long(long nbr)
 		ft_putchar(nbr + '0');
 	return (len_nbr(nbr));
 }
-
+#include <stdio.h>
 int					d_convert(va_list param, t_struct *flags)
 {
 	int				i;
@@ -270,20 +278,33 @@ int					d_convert(va_list param, t_struct *flags)
 	len = 0;
 	nbr = (int)va_arg(param, int);
 	len_nosign = len_nbr(nbr);
+	if(flags->width < 0)
+	{
+		flags->width *= -1;
+		flags->zero = 0;
+		flags->minus_align = 1;
+	}
+	if (nbr == 0 && flags->prec == 0)
+	{
+		if(flags->width < 0)
+			flags->width *= -1;
+		print_space(flags->width, flags);
+		return(0);
+	}
 	if (nbr < 0)
 		flags->width--;
 	len = (flags->prec > len_nosign) ? flags->prec : len_nosign;
 	if (flags->prec == 0 && nbr == 0)
 		return (i += ft_putnchar(' ', flags->width));
-	if (flags->minus_align == 0 && (flags->zero == 0 || flags->prec != -1))
+	if (flags->minus_align == 0 && (flags->zero == 0 || flags->prec > -1))
 		i += ft_putnchar(' ', flags->width - len);
 	i += print_moins(nbr);
-	if (flags->zero == 1 && flags->prec == -1)
+	if (flags->zero == 1 && flags->prec <= -1)
 		i += ft_putnchar('0', flags->width - len);
-	if (flags->prec > len_nosign && flags->prec != -1)
+	if (flags->prec > len_nosign && flags->prec > -1)
 		i += ft_putnchar('0', flags->prec - len_nosign);
 	i += ft_print_long(nbr);
 	if (flags->minus_align == 1)
 		i += ft_putnchar(' ', flags->width - len);
 	return (i);
-}*/
+}

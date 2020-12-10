@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:42:16 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 17:14:22 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 15:46:39 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int				select_conversion(char c, va_list args, t_struct *data);
 int				c_convert(va_list args, t_struct *data, int count);
 int				s_convert(va_list args, t_struct *data, int count);
 int				p_convert(va_list args, t_struct *data, int count);
-int				d_convert(va_list args, t_struct *data, int count);
+int				d_convert(va_list args, t_struct *data);
 int				u_convert(va_list args, t_struct *data, int count);
 int				x_convert(va_list args, t_struct *data, int count);
 int				xbig_convert(va_list args, t_struct *data, int count);
