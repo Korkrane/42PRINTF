@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:33:57 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 20:08:29 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int			check_options(t_struct *data, va_list args, char const *format)
 	i += check_flags((char *)format, data);
 	i += check_width((char *)format, data, args);
 	i += check_prec((char *)format, data, args);
-	//printf("Check struct data :\nzero: %d\nwidth: %d\nprec: %d\nminus_align: %d\n\n", data->zero, data->width, data->prec, data->minus_align);
 	return (i);
 }

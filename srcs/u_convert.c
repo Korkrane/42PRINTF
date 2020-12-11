@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 17:49:40 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 19:37:48 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			u_convert(va_list args, t_struct *data, int count)
 	i_len = i_length(i);
 	if (i == 0 && data->prec == 0)
 	{
-		if(data->width < 0)
+		if (data->width < 0)
 			data->width *= -1;
 		print_space(data->width, data);
 		return (count);

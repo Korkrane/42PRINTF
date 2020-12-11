@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:24:19 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 16:52:22 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 20:11:53 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ void	print_zero(int size, t_struct *data)
 		count++;
 	}
 	data->count_char += count;
+}
+
+void	n_space_to_print(t_struct *data, int i_len, int sign)
+{
+	if (data->prec > i_len)
+		print_space(data->width - data->prec - sign, data);
+	else
+		print_space(data->width - i_len - sign, data);
 }
