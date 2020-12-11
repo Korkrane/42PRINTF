@@ -6,16 +6,11 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/12/11 20:08:29 by bahaas           ###   ########.fr       */
-=======
-/*   Updated: 2020/12/11 19:37:31 by bahaas           ###   ########.fr       */
->>>>>>> a54912aed2ffd812098c3ea5fef0dc0fad687662
+/*   Updated: 2020/12/11 21:37:43 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
 static int	check_flags(char *format, t_struct *data)
 {
