@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 13:56:07 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 16:05:34 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ int			p_convert(va_list args, t_struct *data, int count)
 	address_len = address_length(address);
 	if (data->prec == 0 && address == 0)
 	{
+		if (data->minus_align == 1)
+			ft_putstr_fd("0x", 1);
 		if (data->width > 0)
 			print_space(data->width - 2, data);
-		if (data->prec == 0 && address == 0)
+		if (data->minus_align == 0)
 			ft_putstr_fd("0x", 1);
 		return (count + 2);
 	}

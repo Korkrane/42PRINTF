@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 16:22:36 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 13:52:32 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 19:33:57 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ static int	check_flags(char *format, t_struct *data)
 	return (data->pos);
 }
 
+static void	modify_data(t_struct *data)
+{
+	data->width *= -1;
+	data->minus_align = 1;
+	data->zero = 0;
+}
+
 static int	check_width(char *format, t_struct *data, va_list args)
 {
 	int i;
@@ -41,6 +48,8 @@ static int	check_width(char *format, t_struct *data, va_list args)
 	if (format[i] == '*')
 	{
 		data->width = va_arg(args, int);
+		if (data->width < 0)
+			modify_data(data);
 		return (1);
 	}
 	if (ft_strchr("0123456789", format[i]))
