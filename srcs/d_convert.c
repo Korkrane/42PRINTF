@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:29:14 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 19:42:41 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,11 @@ static void	minus_0(t_struct *data, long i, int i_len, int sign)
 	if (sign == 1)
 		data->count_char += 1;
 	if (data->zero == 0 || data->prec > -1)
-	{
-		if (data->prec > i_len)
-			print_space(data->width - data->prec - sign, data);
-		else
-			print_space(data->width - i_len - sign, data);
-	}
+		n_space_to_print(data, i_len, sign);
 	if (sign == 1)
 		ft_putchar('-');
 	if (data->zero == 1 && data->prec <= -1)
-	{
-		if (data->prec > i_len)
-			print_zero(data->width - data->prec - sign, data);
-		else
-			print_zero(data->width - i_len - sign, data);
-	}
+		n_space_to_print(data, i_len, sign);
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
@@ -74,12 +64,7 @@ static void	minus_0(t_struct *data, long i, int i_len, int sign)
 		if (data->prec <= 0)
 			print_space(data->width - i_len - sign, data);
 		else if (data->prec < data->width)
-		{
-			if (data->prec > i_len)
-				print_space(data->width - data->prec - sign, data);
-			else
-				print_space(data->width - i_len - sign, data);
-		}
+			n_space_to_print(data, i_len, sign);
 	}
 }
 
@@ -98,12 +83,9 @@ static void	minus_1(t_struct *data, int i, int i_len, int sign)
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
-	if(data->width < 0)
+	if (data->width < 0)
 		data->width *= -1;
-	if (data->prec > i_len)
-		print_space(data->width - data->prec - sign, data);
-	else
-		print_space(data->width - i_len - sign, data);
+	n_space_to_print(data, i_len, sign);
 }
 
 int			d_convert(va_list args, t_struct *data, int count)
@@ -119,7 +101,7 @@ int			d_convert(va_list args, t_struct *data, int count)
 		sign = 1;
 	if (i == 0 && data->prec == 0)
 	{
-		if(data->width < 0)
+		if (data->width < 0)
 			data->width *= -1;
 		print_space(data->width, data);
 		return (count);

@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:42:16 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:07:20 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 19:44:40 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define BASE_16 16
 
 typedef	struct	s_struct
-{	
+{
 	int			width_len;
 	int			prec_len;
 	int			pos;
@@ -39,6 +39,7 @@ void			ft_putchar(char c);
 void			clean_struct(t_struct *data);
 void			print_space(int size, t_struct *data);
 void			print_zero(int size, t_struct *data);
+void			n_space_to_print(t_struct *data, int i_len, int sign);
 
 int				ft_printf(const char *format, ...);
 void			set_struct(t_struct *data);

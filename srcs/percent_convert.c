@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:24:08 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:29:27 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/11 19:38:09 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		percent_convert(t_struct *data, int count)
 	}
 	else if (data->minus_align == 0)
 	{
-		if(data->width < 0)
+		if (data->width < 0)
 			data->width *= -1;
 		if (data->zero == 1)
 			print_zero(data->width - 1, data);
