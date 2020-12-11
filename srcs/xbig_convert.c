@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:33 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 17:33:43 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 17:50:07 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int			xbig_convert(va_list args, t_struct *data, int count)
 	hex_len = hex_length(hex);
 	if (hex == 0 && data->prec == 0)
 	{
+		if(data->width < 0)
+			data->width *= -1;
 		print_space(data->width, data);
 		return (count);
 	}

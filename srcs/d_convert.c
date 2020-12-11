@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/10 17:28:39 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/10 17:47:38 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ static void	minus_0(t_struct *data, long i, int i_len, int sign)
 	{
 		data->width *= -1;
 		if(data->prec <= 0)
-		print_space(data->width - i_len - sign, data);
+			print_space(data->width - i_len - sign, data);
 		else if(data->prec < data->width)
-		print_space(data->width - i_len - sign, data);
+			print_space(data->width - i_len - sign, data);
 	}
 }
 
