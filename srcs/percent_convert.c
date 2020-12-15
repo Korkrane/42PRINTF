@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:24:08 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:38:09 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/13 15:20:59 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ int		percent_convert(t_struct *data, int count)
 			print_space(data->width - 1, data);
 		ft_putchar('%');
 	}
-	clean_struct(data);
 	return (1 + count);
 }

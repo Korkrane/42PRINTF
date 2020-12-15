@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:27:33 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:37:22 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/13 15:43:54 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	hex_length(unsigned int hex)
 
 static void	ft_putnbr_base(unsigned int nbr, char *base)
 {
-	if (nbr >= 16)
+	if (nbr >= BASE_16)
 	{
 		ft_putnbr_base(nbr / BASE_16, base);
 		ft_putnbr_base(nbr % BASE_16, base);
@@ -41,19 +41,9 @@ static void	ft_putnbr_base(unsigned int nbr, char *base)
 static void	minus_0(t_struct *data, int i, int i_len)
 {
 	if (data->zero == 0 || data->prec > -1)
-	{
-		if (data->prec > i_len)
-			print_space(data->width - data->prec, data);
-		else
-			print_space(data->width - i_len, data);
-	}
+		n_space_to_print(data, i_len, 0);
 	if (data->zero == 1 && data->prec <= -1)
-	{
-		if (data->prec > i_len)
-			print_zero(data->width - data->prec, data);
-		else
-			print_zero(data->width - i_len, data);
-	}
+		n_zero_to_print(data, i_len, 0);
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr_base(i, HEX_MAJ);
@@ -62,22 +52,12 @@ static void	minus_0(t_struct *data, int i, int i_len)
 static void	minus_1(t_struct *data, int i, int i_len)
 {
 	if (data->zero == 1 && data->prec <= -1)
-	{
-		if (data->prec > i_len)
-			print_zero(data->width - data->prec, data);
-		else
-			print_zero(data->width - i_len, data);
-	}
+		n_zero_to_print(data, i_len, 0);
 	if (data->prec > i_len && data->prec > -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr_base(i, HEX_MAJ);
-	if (data->zero == 0 || data->prec != -1)
-	{
-		if (data->prec > i_len)
-			print_space(data->width - data->prec, data);
-		else
-			print_space(data->width - i_len, data);
-	}
+	if (data->zero == 0 || data->prec > -1)
+		n_space_to_print(data, i_len, 0);
 }
 
 int			xbig_convert(va_list args, t_struct *data, int count)
@@ -98,6 +78,5 @@ int			xbig_convert(va_list args, t_struct *data, int count)
 		minus_0(data, hex, hex_len);
 	else if (data->minus_align == 1)
 		minus_1(data, hex, hex_len);
-	clean_struct(data);
 	return (count + hex_len);
 }

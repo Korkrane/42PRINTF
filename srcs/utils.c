@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:24:19 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 21:37:31 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/13 15:41:43 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,6 @@
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
-}
-
-void	clean_struct(t_struct *data)
-{
-	data->pos = 1;
-	data->prec_len = 0;
-	data->width_len = 0;
-	data->zero = 0;
-	data->minus_align = 0;
-	data->width = 0;
-	data->prec = -1;
 }
 
 void	print_space(int size, t_struct *data)
@@ -62,4 +51,12 @@ void	n_space_to_print(t_struct *data, int i_len, int sign)
 		print_space(data->width - data->prec - sign, data);
 	else
 		print_space(data->width - i_len - sign, data);
+}
+
+void	n_zero_to_print(t_struct *data, int i_len, int sign)
+{
+	if (data->prec > i_len)
+		print_zero(data->width - data->prec - sign, data);
+	else
+		print_zero(data->width - i_len - sign, data);
 }

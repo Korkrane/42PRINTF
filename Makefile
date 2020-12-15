@@ -6,7 +6,7 @@
 #    By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/26 13:21:04 by bahaas            #+#    #+#              #
-#    Updated: 2020/12/09 13:16:45 by bahaas           ###   ########.fr        #
+#    Updated: 2020/12/11 21:52:24 by bahaas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ LIB_D	= libft
 SRCS	= c_convert.c s_convert.c percent_convert.c p_convert.c x_convert.c\
 		  xbig_convert.c d_convert.c u_convert.c check_options.c\
 		  select_conversion.c ft_printf.c utils.c
-SRCS_O	= c_convert.o
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f

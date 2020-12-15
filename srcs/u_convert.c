@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:26:41 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:37:48 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/13 15:42:32 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,9 @@ static void	ft_putnbr(long nbr)
 static void	minus_0(t_struct *data, long i, int i_len)
 {
 	if (data->zero == 0 || data->prec > -1)
-	{
-		if (data->prec > i_len)
-			print_space(data->width - data->prec, data);
-		else
-			print_space(data->width - i_len, data);
-	}
+		n_space_to_print(data, i_len, 0);
 	if (data->zero == 1 && data->prec <= -1)
-	{
-		if (data->prec > i_len)
-			print_zero(data->width - data->prec, data);
-		else
-			print_zero(data->width - i_len, data);
-	}
+		n_zero_to_print(data, i_len, 0);
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
@@ -68,22 +58,12 @@ static void	minus_0(t_struct *data, long i, int i_len)
 static void	minus_1(t_struct *data, long i, int i_len)
 {
 	if (data->zero == 1 && data->prec == -1)
-	{
-		if (data->prec > i_len)
-			print_zero(data->width - data->prec, data);
-		else
-			print_zero(data->width - i_len, data);
-	}
+		n_zero_to_print(data, i_len, 0);
 	if (data->prec > i_len && data->prec != -1)
 		print_zero(data->prec - i_len, data);
 	ft_putnbr(i);
-	if (data->zero == 0 || data->prec != -1)
-	{
-		if (data->prec > i_len)
-			print_space(data->width - data->prec, data);
-		else
-			print_space(data->width - i_len, data);
-	}
+	if (data->zero == 0 || data->prec > -1)
+		n_space_to_print(data, i_len, 0);
 }
 
 int			u_convert(va_list args, t_struct *data, int count)
@@ -104,6 +84,5 @@ int			u_convert(va_list args, t_struct *data, int count)
 		minus_0(data, i, i_len);
 	else if (data->minus_align == 1)
 		minus_1(data, i, i_len);
-	clean_struct(data);
 	return (count + i_len);
 }

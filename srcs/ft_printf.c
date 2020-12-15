@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 13:21:40 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/09 16:47:51 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/13 15:19:43 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	set_struct(t_struct *data)
 	data->width_len = 0;
 	data->prec_len = 0;
 	data->pos = 1;
-	data->count_char = 0;
 	data->zero = 0;
 	data->minus_align = 0;
 	data->width = 0;
@@ -31,6 +30,7 @@ int		str_parsing(const char *format, t_struct *data, va_list args)
 	i = 0;
 	while (format[i])
 	{
+		set_struct(data);
 		if (format[i] != '%')
 		{
 			ft_putchar(format[i]);
@@ -51,18 +51,13 @@ int		str_parsing(const char *format, t_struct *data, va_list args)
 int		ft_printf(const char *format, ...)
 {
 	va_list		args;
-	t_struct	*data;
-	int			count;
+	t_struct	data;
 
-	count = 0;
-	if (!(data = malloc(sizeof(t_struct))))
-		return (0);
 	if ((format[0] == '%' && format[1] == '\0') || format[0] == '\0')
 		return (0);
-	set_struct(data);
 	va_start(args, format);
-	count = str_parsing(format, data, args);
+	data.count_char = 0;
+	data.count_char = str_parsing(format, &data, args);
 	va_end(args);
-	free(data);
-	return (count);
+	return (data.count_char);
 }

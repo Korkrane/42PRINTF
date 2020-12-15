@@ -6,7 +6,7 @@
 /*   By: bahaas <bahaas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 17:24:08 by bahaas            #+#    #+#             */
-/*   Updated: 2020/12/11 19:33:07 by bahaas           ###   ########.fr       */
+/*   Updated: 2020/12/13 15:20:26 by bahaas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int		c_convert(va_list args, t_struct *data, int count)
 			print_space(data->width - 1, data);
 		ft_putchar(c);
 	}
-	clean_struct(data);
 	return (1 + count);
 }
